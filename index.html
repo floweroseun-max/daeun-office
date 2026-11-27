@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>다은님 비서실</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="다은님 비서실">
+<meta name="theme-color" content="#FAF5EE">
+<meta name="description" content="다은님 전용 클레이 오피스 · 클로드·지피티·제미나이 3사 AI 연동 비서실">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
+<link rel="apple-touch-icon" href="office-map.jpg">
+<style>
+:root{
+  --cream:#FAF5EE;
+  --cream-2:#F4E9DA;
+  --wood:#8B4B1F;
+  --wood-2:#A9602C;
+  --wood-deep:#6B3714;
+  --ink:#3B2A1D;
+  --muted:#8E7767;
+  --line:rgba(139,75,31,.14);
+  --line-2:rgba(139,75,31,.24);
+  --green:#3FA46A;
+  --card:#FFFDF9;
+  --shadow:0 8px 22px rgba(139,75,31,.08);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Pretendard",system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 420px at 50% -8%, #FFFCF7 0%, rgba(255,252,247,0) 60%),
+    radial-gradient(700px 420px at 100% 8%, rgba(244,214,180,.45) 0%, rgba(244,214,180,0) 65%),
+    radial-gradient(700px 500px at 0% 30%, rgba(238,222,201,.55) 0%, rgba(238,222,201,0) 60%),
+    var(--cream);
+  background-attachment:fixed;
+  min-height:100dvh;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:26px;
+}
+button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+.app{max-width:520px;margin:0 auto;padding:0 14px}
+
+/* ---------- header ---------- */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:16px 2px 12px;position:sticky;top:0;z-index:40;
+  background:linear-gradient(#FAF5EE 72%,rgba(250,245,238,.86) 88%,rgba(250,245,238,0));
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.crown{
+  width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:20px;
+  background:radial-gradient(circle at 32% 28%,#FFF6E6,#F3DDBC 70%,#E9CBA2);
+  border:1px solid rgba(139,75,31,.18);
+  box-shadow:0 4px 12px rgba(139,75,31,.16), inset 0 1px 0 #fffaf2;
+  flex:0 0 auto;
+}
+h1{font-size:19px;margin:0;letter-spacing:-.4px;color:#4A2E17;font-weight:800;line-height:1.15;white-space:nowrap}
+.subline{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted);font-weight:700;margin-top:3px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 0 3px rgba(63,164,106,.14)}
+.live{
+  display:flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;
+  background:rgba(255,253,249,.9);border:1px solid rgba(63,164,106,.26);
+  font-size:11.5px;font-weight:800;color:#2E7D52;white-space:nowrap;
+  box-shadow:0 2px 10px rgba(63,164,106,.1);
+}
+.live .dot{animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(63,164,106,.14)}50%{box-shadow:0 0 0 6px rgba(63,164,106,.05)}}
+
+/* ---------- tabs ---------- */
+.tabs{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:5px;
+  background:rgba(255,253,249,.72);border:1px solid var(--line);border-radius:18px;
+  padding:5px;margin-bottom:14px;box-shadow:var(--shadow);
+}
+.tab{
+  border:0;background:transparent;border-radius:13px;padding:9px 4px;
+  font-size:12px;font-weight:800;color:#937C6B;letter-spacing:-.2px;
+  display:flex;align-items:center;justify-content:center;gap:4px;transition:.18s;
+}
+.tab:active{transform:scale(.96)}
+.tab.on{
+  background:linear-gradient(135deg,#8B4B1F,#A9602C);
+  color:#FFF7EE;box-shadow:0 6px 14px rgba(139,75,31,.28);
+}
+.view{display:none}
+.view.on{display:block;animation:fadeUp .26s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- shared ---------- */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  padding:16px;margin-bottom:12px;box-shadow:var(--shadow);
+}
+.hero{
+  background:linear-gradient(150deg,#FFF8EE 0%,#FAEEDC 52%,#F6E4CE 100%);
+  border:1px solid rgba(139,75,31,.16);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#8A5A2E;
+  background:rgba(255,255,255,.72);border:1px solid rgba(139,75,31,.14);
+  padding:5px 10px;border-radius:999px;margin-bottom:10px;
+}
+.hero h2{margin:0 0 6px;font-size:19px;letter-spacing:-.5px;color:#4A2E17;line-height:1.3}
+.hero p{margin:0;font-size:12.5px;line-height:1.6;color:#8A6E57;font-weight:600}
+.muted{color:var(--muted)}
+.small{font-size:11.5px;line-height:1.55}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.row.between{justify-content:space-between}
+.label{font-size:11px;font-weight:800;color:#A08A78;letter-spacing:.2px;margin:0 0 6px}
+
+.pill{
+  display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;
+  font-size:11.5px;font-weight:800;background:rgba(255,253,249,.92);
+  border:1px solid var(--line);color:#8A6E57;white-space:nowrap;
+}
+.pill.ok{color:#2E7D52;border-color:rgba(63,164,106,.3);background:rgba(63,164,106,.08)}
+.pill.warn{color:#9A5A16;border-color:rgba(212,142,60,.34);background:rgba(212,142,60,.1)}
+.pill.wood{color:#7A4318;border-color:var(--line-2);background:rgba(139,75,31,.06)}
+
+.seg{display:inline-flex;background:#F1E4D4;border-radius:999px;padding:4px;gap:3px}
+.seg button{
+  border:0;background:transparent;padding:7px 13px;border-radius:999px;
+  font-size:12.5px;font-weight:800;color:#9A8474;transition:.18s;white-space:nowrap;
+}
+.seg button.on{background:#fff;color:var(--wood);box-shadow:0 2px 8px rgba(139,75,31,.14)}
+.seg.full{display:flex;width:100%}
+.seg.full button{flex:1;padding:8px 4px;font-size:12px}
+
+.switch{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,253,249,.92);
+  border-radius:999px;padding:5px 12px 5px 10px;font-size:12.5px;font-weight:800;color:#9A8474;
+}
+.switch .track{width:38px;height:22px;border-radius:999px;background:#E3D2C0;position:relative;transition:.2s;flex:0 0 auto}
+.switch .knob{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);transition:.2s}
+.switch.on{color:var(--wood);border-color:var(--line-2)}
+.switch.on .track{background:linear-gradient(135deg,#8B4B1F,#B06B33)}
+.switch.on .knob{left:19px}
+
+.btn{
+  border:1px solid var(--line-2);background:#FFFDF9;color:#7A4318;font-weight:800;font-size:12.5px;
+  padding:10px 14px;border-radius:14px;transition:.16s;
+}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:linear-gradient(135deg,#8B4B1F,#A9602C);color:#FFF7EE;border:0;box-shadow:0 6px 14px rgba(139,75,31,.24)}
+.btn.ghost{background:transparent}
+.btn.danger{color:#A03A2E;border-color:rgba(160,58,46,.3);background:rgba(160,58,46,.05)}
+.btn.wide{width:100%}
+
+input[type=text],input[type=password],textarea{
+  width:100%;border:1px solid var(--line);background:#FFFCF7;border-radius:14px;
+  padding:11px 13px;font-size:13.5px;outline:none;transition:.16s;color:var(--ink);
+}
+input::placeholder,textarea::placeholder{color:#BCA795}
+input:focus,textarea:focus{border-color:rgba(139,75,31,.42);background:#fff;box-shadow:0 0 0 3px rgba(139,75,31,.08)}
+textarea{resize:vertical;line-height:1.6}
+
+/* ---------- map ---------- */
+.maptools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.mapchips{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.map-frame{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(139,75,31,.18);box-shadow:0 12px 28px rgba(139,75,31,.16);background:#F2E4D1}
+.map-frame img{width:100%;display:block;user-select:none;-webkit-user-drag:none}
+.room-badge{
+  position:absolute;transform:translate(-50%,-50%);
+  display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:999px;
+  background:rgba(255,252,246,.94);border:1px solid rgba(139,75,31,.2);
+  box-shadow:0 6px 16px rgba(90,50,20,.24);font-size:12px;font-weight:800;color:#6B3714;
+  white-space:nowrap;cursor:pointer;backdrop-filter:blur(4px);
+}
+.room-badge:active{transform:translate(-50%,-50%) scale(.94)}
+.bot-dot{
+  position:absolute;width:11px;height:11px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#9BE7BA,#35A76C);
+  border:2px solid #FFFCF6;box-shadow:0 2px 6px rgba(20,80,45,.35);
+  transform:translate(-50%,-50%);
+}
+.float{animation:floaty 4.4s ease-in-out infinite}
+.float.d1{animation-delay:-.7s}
+.float.d2{animation-delay:-1.4s}
+.float.d3{animation-delay:-2.1s}
+.float.d4{animation-delay:-2.8s}
+@keyframes floaty{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 5px))}}
+.dot.float2{animation:floatdot 3.4s ease-in-out infinite}
+@keyframes floatdot{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 3px))}}
+
+/* fallback flat plan */
+.floorplan{
+  display:grid;grid-template-columns:1.15fr 1fr;grid-template-rows:auto auto;gap:9px;padding:11px;border-radius:20px;
+  border:1px solid rgba(139,75,31,.18);
+  background:
+    repeating-linear-gradient(90deg,rgba(180,130,90,.16) 0 1px,rgba(0,0,0,0) 1px 26px),
+    linear-gradient(160deg,#F7EDDF,#F1E1CC);
+  box-shadow:0 12px 26px rgba(139,75,31,.12);
+}
+.fp-room{
+  border-radius:15px;background:rgba(255,253,249,.9);border:1.5px dashed rgba(139,75,31,.32);
+  padding:13px 12px;display:flex;flex-direction:column;gap:2px;cursor:pointer;text-align:left;
+  transition:.16s;box-shadow:0 3px 10px rgba(139,75,31,.06);
+}
+.fp-room:active{transform:scale(.98);background:#fff}
+.fp-room .fp-emoji{font-size:20px;line-height:1}
+.fp-room b{font-size:13px;color:#5A3A22;letter-spacing:-.2px}
+.fp-room em{font-style:normal;font-size:10.5px;color:#A08A78;font-weight:700}
+.fp-room .go{font-size:10.5px;font-weight:800;color:var(--wood);margin-top:4px}
+.fp-hall{grid-row:span 2;justify-content:center}
+
+/* ---------- meeting ---------- */
+.subtabs{margin-bottom:10px}
+.roomcard{
+  border-radius:20px;padding:13px 14px;margin-bottom:10px;
+  background:linear-gradient(135deg,#FFF8EE,#F7E9D7);border:1px solid rgba(139,75,31,.16);
+  display:flex;align-items:center;gap:10px;
+}
+.roomcard .rname{font-size:14px;font-weight:800;color:#4A2E17;letter-spacing:-.2px}
+.roomcard .rdesc{font-size:11px;color:#8E7767;font-weight:700;margin-top:2px}
+.people{display:flex;gap:5px;margin-left:auto}
+.people span{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;
+  background:rgba(255,255,255,.85);border:1px solid rgba(139,75,31,.16);box-shadow:0 2px 5px rgba(139,75,31,.08);
+}
+.people span.off{opacity:.45;filter:grayscale(.6)}
+
+.chat{
+  background:#FFFDF9;border:1px solid var(--line);border-radius:20px;padding:13px 12px;
+  min-height:270px;max-height:46vh;overflow-y:auto;display:flex;flex-direction:column;gap:11px;
+  scroll-behavior:smooth;box-shadow:inset 0 2px 8px rgba(139,75,31,.04);
+}
+.chat::-webkit-scrollbar{width:4px}
+.chat::-webkit-scrollbar-thumb{background:rgba(139,75,31,.2);border-radius:4px}
+.daytag{align-self:center;font-size:10.5px;font-weight:800;color:#A08A78;background:#F6EBDE;padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+.msg{display:flex;gap:7px;max-width:94%;align-items:flex-start}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.ava{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;flex:0 0 auto;
+  background:#F6EADA;border:1px solid rgba(139,75,31,.14);box-shadow:0 2px 5px rgba(139,75,31,.07);
+}
+.bwrap{min-width:0}
+.who{display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:#A08A78;margin-bottom:3px}
+.msg.me .who{justify-content:flex-end}
+.who .time{font-weight:700;color:#C0AA98}
+.bubble{
+  background:#F8EFE3;border:1px solid rgba(139,75,31,.1);color:#42301F;
+  padding:9px 12px;border-radius:15px;border-top-left-radius:5px;
+  font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;
+}
+.msg.me .bubble{
+  background:linear-gradient(135deg,#8B4B1F,#A9602C);color:#FFF7EE;border:0;
+  border-radius:15px;border-top-right-radius:5px;box-shadow:0 4px 12px rgba(139,75,31,.22);
+}
+.msg.err .bubble{background:#FDEEEB;border-color:rgba(160,58,46,.22);color:#8E3529}
+.hint{
+  align-self:center;max-width:92%;text-align:center;font-size:11.5px;line-height:1.6;font-weight:700;
+  color:#8A6E57;background:#F7EDDF;border:1px dashed rgba(139,75,31,.28);border-radius:14px;padding:8px 12px;
+}
+.typing{display:flex;gap:4px;align-items:center;padding:10px 13px;background:#F8EFE3;border-radius:15px;border-top-left-radius:5px;border:1px solid rgba(139,75,31,.1)}
+.typing i{width:6px;height:6px;border-radius:50%;background:#B98A5E;display:block;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}
+.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.28;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
+
+.composer{display:flex;gap:8px;margin-top:10px;align-items:flex-end}
+.composer input{flex:1;padding:12px 14px;border-radius:16px}
+.send{
+  width:46px;height:46px;flex:0 0 auto;border:0;border-radius:16px;font-size:17px;color:#fff;
+  background:linear-gradient(135deg,#8B4B1F,#B06B33);box-shadow:0 6px 16px rgba(139,75,31,.28);
+}
+.send:active{transform:scale(.95)}
+.chiprow{display:flex;gap:5px;overflow-x:auto;padding:1px 0 4px;scrollbar-width:none}
+.chiprow::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;border:1px solid var(--line);background:#FFFCF7;border-radius:999px;
+  padding:6px 11px;font-size:11.5px;font-weight:800;color:#9A8474;transition:.15s;
+}
+.chip.on{background:rgba(139,75,31,.1);border-color:var(--line-2);color:var(--wood)}
+.chip.mention{background:#F6EBDD}
+.chip.mention:active{background:#EFDEC8}
+.sect-label{display:flex;align-items:center;justify-content:space-between;margin:2px 0 5px;font-size:10.5px;font-weight:800;color:#A08A78;letter-spacing:.2px}
+.sect-label .mini{font-weight:700;color:#BCA795;font-size:10px}
+
+/* ---------- work ---------- */
+.addrow{display:flex;gap:7px;margin:10px 0 12px}
+.addrow input{flex:1}
+.addrow .btn{padding:0 15px;border-radius:14px}
+.todos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.todo{
+  display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:15px;
+  background:#FFFCF7;border:1px solid var(--line);transition:.16s;
+}
+.todo .check{
+  width:22px;height:22px;flex:0 0 auto;border-radius:8px;border:1.6px solid rgba(139,75,31,.34);
+  background:#fff;display:grid;place-items:center;font-size:12px;color:transparent;transition:.16s;padding:0;
+}
+.todo.done .check{background:linear-gradient(135deg,#8B4B1F,#B06B33);border-color:transparent;color:#fff}
+.todo .tx{flex:1;font-size:13px;font-weight:600;line-height:1.45;word-break:break-word}
+.todo.done .tx{color:#B4A093;text-decoration:line-through;text-decoration-thickness:1.5px}
+.todo .del{background:transparent;border:0;color:#C9B4A2;font-size:14px;padding:4px 2px}
+.empty{text-align:center;color:#BCA795;font-size:12px;font-weight:700;padding:18px 8px}
+
+/* ---------- team ---------- */
+.team{display:flex;flex-direction:column;gap:10px}
+.tcard{
+  display:flex;gap:11px;padding:14px;border-radius:20px;background:var(--card);
+  border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.tava{
+  width:44px;height:44px;flex:0 0 auto;border-radius:16px;display:grid;place-items:center;font-size:21px;
+  background:linear-gradient(150deg,#FFF6E8,#F3E2CB);border:1px solid rgba(139,75,31,.16);
+  box-shadow:inset 0 1px 0 #fffaf2;
+}
+.tbody{flex:1;min-width:0}
+.tname{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:800;color:#4A2E17}
+.trole{font-size:10.5px;font-weight:800;color:#8A6E57;background:#F6EBDD;border-radius:999px;padding:3px 8px}
+.tdesc{font-size:11.5px;color:#8E7767;line-height:1.55;margin-top:4px;font-weight:600}
+.tmeta{display:flex;align-items:center;gap:5px;margin-top:8px;flex-wrap:wrap}
+.tmeta .pill{padding:4px 9px;font-size:10.5px}
+
+/* ---------- api ---------- */
+.privacy{
+  display:flex;gap:8px;font-size:11.5px;line-height:1.6;font-weight:700;color:#6F553F;
+  background:rgba(63,164,106,.08);border:1px solid rgba(63,164,106,.24);
+  border-radius:14px;padding:10px 12px;margin:10px 0 4px;
+}
+.provider{border-top:1px dashed rgba(139,75,31,.2);padding-top:13px;margin-top:13px}
+.provider:first-of-type{border-top:0;margin-top:6px;padding-top:0}
+.phead{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.pdot{width:9px;height:9px;border-radius:50%;background:var(--c,#8B4B1F);box-shadow:0 0 0 3px rgba(139,75,31,.08)}
+.phead b{font-size:13px;color:#4A2E17;letter-spacing:-.2px}
+.phead .pill{margin-left:auto;padding:4px 9px;font-size:10px}
+.keyrow{display:flex;gap:6px;margin-bottom:8px}
+.keyrow input{flex:1;font-size:12.5px;letter-spacing:.4px}
+.eye{
+  width:42px;flex:0 0 auto;border:1px solid var(--line);background:#FFFCF7;border-radius:14px;font-size:14px;
+}
+.plabel{display:block;font-size:10.5px;font-weight:800;color:#A08A78;margin:0 0 4px}
+.footnotes{font-size:10.5px;color:#B09A88;line-height:1.6;margin-top:10px;font-weight:600}
+
+/* ---------- memo ---------- */
+.memos{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.memo{
+  background:linear-gradient(150deg,#FFFBEF,#FBF3DF);border:1px solid rgba(196,160,90,.35);
+  border-radius:16px;padding:12px 13px;box-shadow:0 4px 12px rgba(139,75,31,.06);
+}
+.memo .mtext{font-size:13px;line-height:1.65;white-space:pre-wrap;word-break:break-word;color:#4B3826}
+.memo .mfoot{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:10px;color:#B09A88;font-weight:700}
+.memo .mfoot .sp{margin-left:auto;display:flex;gap:4px}
+.iconbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:4px 8px;font-size:11px;color:#8A6E57;font-weight:800}
+.memo textarea{margin-top:8px;font-size:12.5px}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:rgba(59,42,29,.94);color:#FFF7EE;font-size:12.5px;font-weight:800;
+  padding:11px 18px;border-radius:999px;z-index:99;transition:.25s;backdrop-filter:blur(6px);
+  box-shadow:0 10px 26px rgba(0,0,0,.22);max-width:86vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;font-size:10.5px;color:#BCA795;font-weight:700;padding:16px 0 4px;line-height:1.7}
+footer a{color:#A08A78}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="crown">👑</div>
+      <div>
+        <h1>다은님 비서실</h1>
+        <div class="subline"><span class="dot"></span> 다은님 전용</div>
+      </div>
+    </div>
+    <div class="live"><span class="dot"></span> 실시간 연결</div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-tab="map">🗺️ 오피스 맵</button>
+    <button class="tab" data-tab="meeting">💬 회의실</button>
+    <button class="tab" data-tab="work">📋 작업실</button>
+    <button class="tab" data-tab="team">📊 비서현황</button>
+    <button class="tab" data-tab="api">⚙️ API 설정</button>
+    <button class="tab" data-tab="memo">📝 메모</button>
+  </nav>
+
+  <!-- ================= MAP ================= -->
+  <section class="view on" id="view-map">
+    <div class="card hero">
+      <span class="hero-tag">👑 다은님 비서실 본부</span>
+      <h2>대장님, 비서 4명이 대기 중이에요</h2>
+      <p>방을 눌러 들어가 보세요. 방마다 비서들이 일하고 있어요.</p>
+    </div>
+
+    <div class="maptools">
+      <div class="seg" id="mapMode">
+        <button data-mode="clay" class="on">🧸 클레이</button>
+        <button data-mode="basic">🗺️ 기본</button>
+      </div>
+      <button class="switch on" id="motionBtn" aria-pressed="true">
+        <span class="track"><span class="knob"></span></span>
+        <span id="motionLabel">움직임 ON</span>
+      </button>
+    </div>
+
+    <div class="mapchips">
+      <span class="pill ok">🟢 3개 방 가동</span>
+      <span class="pill wood">👥 ON 5명</span>
+    </div>
+
+    <div id="mapWrap"></div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="row between" style="margin-bottom:8px">
+        <b style="font-size:13px;color:#4A2E17">방별 상황</b>
+        <span class="small muted">뱃지를 눌러 회의실로</span>
+      </div>
+      <div class="row" style="gap:6px">
+        <span class="pill">🏛️ 대회의실 · 회의 중</span>
+        <span class="pill">🎯 지휘실 · 지시 대기</span>
+        <span class="pill">☕ 라운지 · 충전 중</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MEETING ================= -->
+  <section class="view" id="view-meeting">
+    <div class="subtabs seg full" id="roomTabs">
+      <button data-room="hall" class="on">🏛️ 대회의실</button>
+      <button data-room="hq">🎯 지휘실</button>
+      <button data-room="lounge">☕ 라운지</button>
+    </div>
+
+    <div class="roomcard">
+      <div>
+        <div class="rname" id="roomName">🏛️ 대회의실</div>
+        <div class="rdesc" id="roomDesc">전원 회의 · 안건 정리 중</div>
+      </div>
+      <div class="people" id="roomPeople"></div>
+    </div>
+
+    <div class="chat" id="chat"></div>
+
+    <div class="card" style="margin-top:10px;padding:12px">
+      <div class="sect-label">보내는 사람 <span class="mini">내 메시지를 고르세요</span></div>
+      <div class="chiprow" id="senderRow"></div>
+
+      <div class="sect-label" style="margin-top:9px">멘션 <span class="mini">@all 은 셋이 함께 답해요</span></div>
+      <div class="chiprow" id="mentionRow">
+        <button class="chip mention" data-m="@all">@all</button>
+        <button class="chip mention" data-m="@클로드">@클로드</button>
+        <button class="chip mention" data-m="@지피티">@지피티</button>
+        <button class="chip mention" data-m="@제미나이">@제미나이</button>
+        <button class="chip mention" data-m="@다니">@다니</button>
+      </div>
+
+      <div class="composer">
+        <input type="text" id="msgInput" placeholder="대장님, 지시를 입력하세요…" autocomplete="off">
+        <button class="send" id="sendBtn" aria-label="전송">➤</button>
+      </div>
+
+      <div class="row between" style="margin-top:10px">
+        <span class="small muted" id="aiStatusLine">⚙️ API 키를 넣으면 실제 AI가 답해요</span>
+        <button class="btn ghost" id="resetChat" style="padding:6px 10px;font-size:11px">대화 초기화</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WORK ================= -->
+  <section class="view" id="view-work">
+    <div class="card">
+      <div class="row between">
+        <b style="font-size:14px;color:#4A2E17">📋 오늘의 작업</b>
+        <span class="pill wood" id="todoCount">0 / 0</span>
+      </div>
+      <div class="addrow">
+        <input type="text" id="todoInput" placeholder="할 일을 추가하세요" autocomplete="off">
+        <button class="btn primary" id="todoAdd">추가</button>
+      </div>
+      <ul class="todos" id="todoList"></ul>
+    </div>
+    <p class="small muted" style="text-align:center;margin:2px 0 14px">체크한 일은 이 브라우저에만 저장돼요</p>
+  </section>
+
+  <!-- ================= TEAM ================= -->
+  <section class="view" id="view-team">
+    <div class="card" style="padding:14px 16px">
+      <div class="row between">
+        <b style="font-size:14px;color:#4A2E17">📊 비서 4명 현황</b>
+        <span class="pill ok">● 5명 온라인</span>
+      </div>
+      <p class="small muted" style="margin:7px 0 0">역할·담당·API 연결 상태를 한눈에 볼 수 있어요.</p>
+    </div>
+    <div class="team" id="teamList"></div>
+  </section>
+
+  <!-- ================= API ================= -->
+  <section class="view" id="view-api">
+    <div class="card">
+      <b style="font-size:14px;color:#4A2E17">🔐 API 설정 (BYOK)</b>
+      <p class="small muted" style="margin:7px 0 0;line-height:1.6">키를 넣으면 회의실에서 비서들이 각자 진짜 AI로 답해요. 비어 있으면 샘플 안내만 나갑니다.</p>
+
+      <div class="privacy">
+        <span>🛡️</span>
+        <span>모든 API 키는 외부 서버로 전송되지 않고 오직 다은님 브라우저(localStorage)에만 저장됩니다.</span>
+      </div>
+
+      <div class="provider" data-p="claude">
+        <div class="phead"><span class="pdot" style="--c:#D97706"></span><b>Anthropic Claude</b><span class="pill" data-stat="claude">미설정</span></div>
+        <label class="plabel" for="key-claude">API 키</label>
+        <div class="keyrow">
+          <input type="password" id="key-claude" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+          <button class="eye" data-eye="claude" aria-label="키 보기">👁️</button>
+        </div>
+        <label class="plabel" for="model-claude">모델</label>
+        <input type="text" id="model-claude" placeholder="claude-sonnet-4-20250514" spellcheck="false">
+      </div>
+
+      <div class="provider" data-p="openai">
+        <div class="phead"><span class="pdot" style="--c:#10A37F"></span><b>OpenAI GPT</b><span class="pill" data-stat="openai">미설정</span></div>
+        <label class="plabel" for="key-openai">API 키</label>
+        <div class="keyrow">
+          <input type="password" id="key-openai" placeholder="sk-..." autocomplete="off" spellcheck="false">
+          <button class="eye" data-eye="openai" aria-label="키 보기">👁️</button>
+        </div>
+        <label class="plabel" for="model-openai">모델</label>
+        <input type="text" id="model-openai" placeholder="gpt-4o-mini" spellcheck="false">
+      </div>
+
+      <div class="provider" data-p="gemini">
+        <div class="phead"><span class="pdot" style="--c:#4285F4"></span><b>Google Gemini</b><span class="pill" data-stat="gemini">미설정</span></div>
+        <label class="plabel" for="key-gemini">API 키</label>
+        <div class="keyrow">
+          <input type="password" id="key-gemini" placeholder="AIza..." autocomplete="off" spellcheck="false">
+          <button class="eye" data-eye="gemini" aria-label="키 보기">👁️</button>
+        </div>
+        <label class="plabel" for="model-gemini">모델</label>
+        <input type="text" id="model-gemini" placeholder="gemini-2.5-flash" spellcheck="false">
+      </div>
+
+      <div class="row" style="margin-top:16px;gap:8px">
+        <button class="btn primary" id="saveKeys" style="flex:1">키 저장</button>
+        <button class="btn danger" id="clearKeys">전체 삭제</button>
+      </div>
+      <p class="footnotes">· 브라우저에서 각 사 API로 직접 요청합니다. 회사별로 브라우저 직접 호출이 막혀 있으면 오류가 날 수 있어요.<br>· 비밀번호 관리자에 저장되지 않도록 이 페이지는 자동완성을 꺼 두었습니다.</p>
+    </div>
+  </section>
+
+  <!-- ================= MEMO ================= -->
+  <section class="view" id="view-memo">
+    <div class="card">
+      <div class="row between">
+        <b style="font-size:14px;color:#4A2E17">📝 메모</b>
+        <span class="small muted" id="memoCount">0개</span>
+      </div>
+      <textarea id="memoInput" rows="3" placeholder="기억해 둘 내용을 적어 주세요" style="margin-top:10px"></textarea>
+      <button class="btn primary wide" id="memoAdd" style="margin-top:9px">메모 추가</button>
+      <div class="memos" id="memoList"></div>
+    </div>
+  </section>
+
+  <footer>
+    다은님 비서실 · 클레이 오피스 + 3사 AI 연동<br>
+    <a href="https://github.com/floweroseun-max/daeun-office" target="_blank" rel="noopener">github.com/floweroseun-max/daeun-office</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   다은님 비서실 — single file app
+   ========================================================= */
+(function(){
+  "use strict";
+
+  const $ = (s, r) => (r||document).querySelector(s);
+  const $$ = (s, r) => Array.from((r||document).querySelectorAll(s));
+  const esc = (s) => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  const LS_PREFIX = 'daeunOffice.v1.';
+  const store = {
+    get(k, d){ try{ const v = localStorage.getItem(LS_PREFIX+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+    set(k, v){ try{ localStorage.setItem(LS_PREFIX+k, JSON.stringify(v)); }catch(e){} }
+  };
+
+  /* ---------------- identities ---------------- */
+  const AGENTS = {
+    daeun:  { name:'다은',   emoji:'👑', label:'👑 다은 (대장님)', color:'#8B4B1F' },
+    dani:   { name:'다니',   emoji:'🔴', label:'🔴 다니 (총괄비서)', color:'#D64545' },
+    claude: { name:'클로드', emoji:'🟠', label:'🟠 클로드 (분석·문서)', color:'#D97706', api:'claude' },
+    openai: { name:'지피티', emoji:'🟢', label:'🟢 지피티 (기획·카피)', color:'#10A37F', api:'openai' },
+    gemini: { name:'제미나이', emoji:'🔵', label:'🔵 제미나이 (리서치·트렌드)', color:'#4285F4', api:'gemini' }
+  };
+  const AI_KEYS = ['claude','openai','gemini'];
+
+  const PROVIDERS = {
+    claude: { label:'클로드', full:'Anthropic Claude', defModel:'claude-sonnet-4-20250514' },
+    openai: { label:'지피티', full:'OpenAI GPT', defModel:'gpt-4o-mini' },
+    gemini: { label:'제미나이', full:'Google Gemini', defModel:'gemini-2.5-flash' }
+  };
+
+  const ROOMS = {
+    hall:   { name:'🏛️ 대회의실', desc:'전원 회의 · 안건 정리 중', people:['daeun','dani','claude','openai','gemini'] },
+    hq:     { name:'🎯 지휘실',   desc:'지시 하달 · 우선순위 결정', people:['daeun','dani','claude'] },
+    lounge: { name:'☕ 라운지',   desc:'충전 중 · 잡담 환영',       people:['dani','gemini','openai'] }
+  };
+
+  /* ---------------- seed data ---------------- */
+  const now = Date.now();
+  const m = (min) => now - min*60000;
+
+  function seedMessages(){
+    return {
+      hall: [
+        { who:'dani',   at:m(42), text:'대장님, 오늘 아침 브리핑입니다. 공공기관 상품권 이벤트는 누적 47건까지 접수했고, 오늘 마감은 밀양시 퀴즈 한 건이에요. 본인인증만 대장님 손이 필요합니다 🙋' },
+        { who:'claude', at:m(40), text:'정리해 두었습니다. 접수 47건 중 발표 대기 39건, 결과 확인 필요 8건. 오늘 확인할 목록은 제가 표로 묶어 둘게요 📋' },
+        { who:'openai', at:m(37), text:'리틀리 everything.moa 페이지도 오픈했으니 소개 문구 3종 만들어 둘까요? 짧은 버전 · 친근한 버전 · 프로필용까지요 ✨' },
+        { who:'gemini', at:m(34), text:'구석구석 설문도 완료 처리했어요. 요즘 공공 이벤트는 설문+퀴즈 조합이 당첨률이 좋아서, 다음 주 신규 3건도 같은 방식으로 찾아볼게요 🔍' },
+        { who:'dani',   at:m(31), text:'쿠팡 리뷰는 13,773점까지 왔습니다. 오늘은 체험단 마감 2건만 챙기면 돼요. 대장님, 지시만 주세요!' }
+      ],
+      hq: [
+        { who:'dani',   at:m(58), text:'지휘실입니다. 오늘 우선순위 3개만 추렸어요. ① 밀양시 퀴즈 (오늘 23:59) ② 식탁의자 결정 ③ 살림템 5선 링크 발급 🎯' },
+        { who:'claude', at:m(55), text:'식탁의자는 라로퍼니처와 메종드꼼마 두 후보로 좁혀 두었습니다. 좌석 높이 · 원목 등급 · 배송비 세 가지로 비교표를 만들까요?' },
+        { who:'openai', at:m(52), text:'저는 구매 후기 요약과 상세페이지 카피를 맡을게요. 대장님 마음에 드는 쪽 고르시면 바로 정리 들어갑니다 ✍️' },
+        { who:'gemini', at:m(49), text:'살림템 5선은 최근 30일 판매 급상승 기준으로 후보를 뽑아 두었어요. 쿠팡파트너스 링크 발급만 대장님 계정으로 마무리하면 됩니다.' },
+        { who:'dani',   at:m(46), text:'정리하면 오늘 꼭 끝낼 건 퀴즈 하나! 나머지는 제가 순서대로 올릴게요 🎯' }
+      ],
+      lounge: [
+        { who:'gemini', at:m(70), text:'라운지 커피 나왔습니다 ☕ 오늘 서울 노원구는 맑고 낮 6도, 저녁엔 많이 추워져요. 패딩 챙기세요!' },
+        { who:'openai', at:m(66), text:'오늘의 한 줄 — "할 일은 줄이고, 당첨은 늘리고" 🍀' },
+        { who:'claude', at:m(63), text:'대장님, 오늘 47건 접수는 진짜 대단한 기록입니다. 잠깐 쉬어 가셔도 됩니다.' },
+        { who:'dani',   at:m(60), text:'라운지에서는 업무 이야기 금지! 대장님, 5분만 눈 붙이세요 😴' }
+      ]
+    };
+  }
+
+  const SEED_TODOS = [
+    { id:'t1', text:'밀양시 퀴즈 직접 본인인증 (~오늘 23:59)', done:false },
+    { id:'t2', text:'법제처 설문 직접 참여 (~12/3)', done:false },
+    { id:'t3', text:'식탁의자 고르기 (라로퍼니처 vs 메종드꼼마)', done:false },
+    { id:'t4', text:'살림템 5선 쿠팡파트너스 링크 발급', done:false }
+  ];
+
+  /* ---------------- state ---------------- */
+  const state = {
+    tab:'map',
+    mapMode:'clay',
+    motion:true,
+    room:'hall',
+    sender:'daeun',
+    pending:[],
+    editingMemo:null,
+    msgs: store.get('msgs', null) || seedMessages(),
+    todos: store.get('todos', null) || SEED_TODOS,
+    memos: store.get('memos', null) || [],
+    apis: store.get('apis', null) || {
+      claude:{ key:'', model:'claude-sonnet-4-20250514' },
+      openai:{ key:'', model:'gpt-4o-mini' },
+      gemini:{ key:'', model:'gemini-2.5-flash' }
+    }
+  };
+  // 방이 추가/누락된 경우 보정
+  Object.keys(ROOMS).forEach(r => { if(!Array.isArray(state.msgs[r])) state.msgs[r] = []; });
+
+  const saveMsgs  = () => store.set('msgs', state.msgs);
+  const saveTodos = () => store.set('todos', state.todos);
+  const saveMemos = () => store.set('memos', state.memos);
+  const saveApis  = () => store.set('apis', state.apis);
+
+  /* ---------------- toast ---------------- */
+  let toastTimer = null;
+  function toast(msg){
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2100);
+  }
+
+  /* ---------------- tabs ---------------- */
+  function setTab(tab){
+    state.tab = tab;
+    $$('.tab').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+    $$('.view').forEach(v => v.classList.toggle('on', v.id === 'view-' + tab));
+    if(tab === 'meeting'){ renderChat(); scrollChatBottom(); }
+    if(tab === 'team') renderTeam();
+    if(tab === 'work') renderTodos();
+    if(tab === 'memo') renderMemos();
+    if(tab === 'api') renderApiSettings();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  $('#tabs').addEventListener('click', e => {
+    const b = e.target.closest('.tab');
+    if(b) setTab(b.dataset.tab);
+  });
+
+  /* ---------------- map ---------------- */
+  const BADGES = [
+    { room:'hall',   text:'🏛️ 대회의실', x:23, y:56 },
+    { room:'hq',     text:'🎯 지휘실',   x:45, y:33 },
+    { room:'lounge', text:'☕ 라운지',   x:74, y:68 }
+  ];
+  const BOTS = [
+    { x:41, y:24 }, // 다니 (빨간 크리처)
+    { x:42, y:44 }, // 클로드 (부엉이)
+    { x:55, y:42 }, // 지피티 (고양이)
+    { x:69, y:40 }, // 제미나이 (파랑)
+    { x:80, y:55 }  // 라운지 토끼
+  ];
+
+  function renderMap(){
+    const wrap = $('#mapWrap');
+    if(state.mapMode === 'basic'){
+      wrap.innerHTML = `
+        <div class="floorplan">
+          <button class="fp-room fp-hall" data-goroom="hall">
+            <span class="fp-emoji">🏛️</span>
+            <b>대회의실</b>
+            <em>긴 원목 테이블 · 8석</em>
+            <span class="go">들어가기 ›</span>
+          </button>
+          <button class="fp-room" data-goroom="hq">
+            <span class="fp-emoji">🎯</span>
+            <b>지휘실</b>
+            <em>다니 · 총괄 데스크</em>
+            <span class="go">들어가기 ›</span>
+          </button>
+          <button class="fp-room" data-goroom="lounge">
+            <span class="fp-emoji">☕</span>
+            <b>라운지</b>
+            <em>소파 · 충전 구역</em>
+            <span class="go">들어가기 ›</span>
+          </button>
+        </div>`;
+    } else {
+      const badges = BADGES.map((b,i) => `
+        <button class="room-badge ${state.motion?'float d'+i:''}" data-goroom="${b.room}"
+                style="left:${b.x}%;top:${b.y}%">${b.text}</button>`).join('');
+      const dots = BOTS.map((d,i) => `
+        <span class="bot-dot ${state.motion?'dot float2 d'+i:''}" style="left:${d.x}%;top:${d.y}%"></span>`).join('');
+      wrap.innerHTML = `
+        <div class="map-frame">
+          <img src="office-map.jpg" alt="클레이 미니어처 오피스 맵" width="1100" height="1100">
+          ${dots}${badges}
+        </div>`;
+    }
+    wrap.querySelectorAll('[data-goroom]').forEach(el => {
+      el.addEventListener('click', () => { goRoom(el.dataset.goroom); });
+    });
+  }
+
+  function goRoom(room){
+    state.room = room;
+    $$('#roomTabs button').forEach(b => b.classList.toggle('on', b.dataset.room === room));
+    setTab('meeting');
+    renderRoomHeader();
+    renderChat();
+  }
+
+  $('#mapMode').addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    state.mapMode = b.dataset.mode;
+    $$('#mapMode button').forEach(x => x.classList.toggle('on', x === b));
+    renderMap();
+  });
+
+  $('#motionBtn').addEventListener('click', () => {
+    state.motion = !state.motion;
+    const btn = $('#motionBtn');
+    btn.classList.toggle('on', state.motion);
+    btn.setAttribute('aria-pressed', String(state.motion));
+    $('#motionLabel').textContent = state.motion ? '움직임 ON' : '움직임 OFF';
+    renderMap();
+    toast(state.motion ? '움직임 ON ✨' : '움직임 OFF');
+  });
+
+  /* ---------------- meeting ---------------- */
+  function renderRoomHeader(){
+    const r = ROOMS[state.room];
+    $('#roomName').textContent = r.name;
+    $('#roomDesc').textContent = r.desc;
+    $('#roomPeople').innerHTML = r.people.map(k => {
+      const a = AGENTS[k];
+      const on = (k === 'daeun' || k === 'dani') ? true : !!(state.apis[a.api] && state.apis[a.api].key);
+      return `<span title="${esc(a.label)}" class="${on?'':'off'}">${a.emoji}</span>`;
+    }).join('');
+  }
+
+  function fmtTime(ts){
+    try{
+      return new Date(ts).toLocaleTimeString('ko-KR', { hour:'numeric', minute:'2-digit' });
+    }catch(e){ return ''; }
+  }
+
+  function renderChat(){
+    const box = $('#chat');
+    const list = state.msgs[state.room] || [];
+    const today = new Date();
+    const dayLabel = today.toLocaleDateString('ko-KR', { month:'long', day:'numeric', weekday:'short' });
+
+    let html = `<div class="daytag">${esc(dayLabel)}</div>`;
+    if(!list.length){
+      html += `<div class="empty">아직 대화가 없어요.<br>아래에서 첫 지시를 내려 보세요.</div>`;
+    }
+    list.forEach(msg => {
+      if(msg.type === 'hint'){
+        html += `<div class="hint">${esc(msg.text)}</div>`;
+        return;
+      }
+      const a = AGENTS[msg.who] || AGENTS.dani;
+      const me = msg.who === 'daeun';
+      html += `
+        <div class="msg ${me?'me':''} ${msg.type==='error'?'err':''}">
+          <div class="ava">${a.emoji}</div>
+          <div class="bwrap">
+            <div class="who">${esc(me ? '다은 (대장님)' : a.name + ' · ' + roleShort(msg.who))} <span class="time">${fmtTime(msg.at)}</span></div>
+            <div class="bubble">${esc(msg.text)}</div>
+          </div>
+        </div>`;
+    });
+    if(state.pending.length){
+      const names = state.pending.map(k => AGENTS[k] ? AGENTS[k].name : k).join(' · ');
+      html += `
+        <div class="msg">
+          <div class="ava">💭</div>
+          <div class="bwrap">
+            <div class="who">${esc(names)} 답변 작성 중…</div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+        </div>`;
+    }
+    box.innerHTML = html;
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function roleShort(key){
+    switch(key){
+      case 'dani': return '총괄비서';
+      case 'claude': return '분석·문서';
+      case 'openai': return '기획·카피';
+      case 'gemini': return '리서치·트렌드';
+      default: return '';
+    }
+  }
+
+  function scrollChatBottom(){
+    const box = $('#chat');
+    if(box) requestAnimationFrame(() => { box.scrollTop = box.scrollHeight; });
+  }
+
+  $('#roomTabs').addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    state.room = b.dataset.room;
+    $$('#roomTabs button').forEach(x => x.classList.toggle('on', x === b));
+    renderRoomHeader();
+    renderChat();
+  });
+
+  function renderSenders(){
+    $('#senderRow').innerHTML = Object.keys(AGENTS).map(k => {
+      const a = AGENTS[k];
+      return `<button class="chip ${state.sender===k?'on':''}" data-sender="${k}">${a.emoji} ${a.name}</button>`;
+    }).join('');
+  }
+  $('#senderRow').addEventListener('click', e => {
+    const b = e.target.closest('[data-sender]'); if(!b) return;
+    state.sender = b.dataset.sender;
+    renderSenders();
+    $('#msgInput').placeholder = state.sender === 'daeun'
+      ? '대장님, 지시를 입력하세요…'
+      : `${AGENTS[state.sender].name} 이름으로 말하기…`;
+  });
+
+  $('#mentionRow').addEventListener('click', e => {
+    const b = e.target.closest('[data-m]'); if(!b) return;
+    const input = $('#msgInput');
+    const tag = b.dataset.m;
+    input.value = (input.value.replace(/\s+$/,'') + (input.value.trim()? ' ':'') + tag + ' ').replace(/^\s+/,'');
+    input.focus();
+  });
+
+  /* ---- mentions & routing ---- */
+  const MENTION_MAP = [
+    { re:/@all/i, key:'all' },
+    { re:/@(클로드|claude)/i, key:'claude' },
+    { re:/@(지피티|gpt|openai|챗지피티)/i, key:'openai' },
+    { re:/@(제미나이|gemini|제미나이)/i, key:'gemini' },
+    { re:/@(다니|dani)/i, key:'dani' }
+  ];
+
+  function parseMentions(text){
+    const found = [];
+    MENTION_MAP.forEach(mt => { if(mt.re.test(text) && !found.includes(mt.key)) found.push(mt.key); });
+    return found;
+  }
+
+  function connectedAIs(){
+    return AI_KEYS.filter(k => state.apis[k] && state.apis[k].key && state.apis[k].key.trim());
+  }
+
+  function resolveTargets(text, sender){
+    const mentioned = parseMentions(text);
+    let targets = [];
+    if(mentioned.includes('all')) targets = AI_KEYS.slice();
+    else targets = mentioned.filter(k => k !== 'dani' && k !== 'all');
+
+    const wantDani = mentioned.includes('dani');
+
+    if(!mentioned.length){
+      if(sender === 'daeun' || sender === 'dani'){
+        const on = connectedAIs();
+        if(on.length === 0) return { ais:[], noKey:true };
+        targets = on.length >= 2 ? on.slice(0,2) : on.slice(0,1);
+      } else {
+        return { ais:[] };
+      }
+    }
+    // 다니는 로컬 응답 (API 없음)
+    return { ais: targets, dani: wantDani };
+  }
+
+  /* ---- API calls ---- */
+  class ApiError extends Error {
+    constructor(provider, status, detail){ super(detail||'요청 실패'); this.provider=provider; this.status=status; }
+  }
+
+  function transcript(limit){
+    const list = (state.msgs[state.room] || []).slice(-limit);
+    return list.filter(x => x.type !== 'hint').map(x => {
+      const a = AGENTS[x.who] || { name:'다니' };
+      return `${a.name}: ${x.text}`;
+    }).join('\n');
+  }
+
+  function systemPrompt(key){
+    const base = `당신은 '윤다은 대장님 비서실'의 ${AGENTS[key].name} 비서입니다. 역할: ${roleShort(key)}. ` +
+      `상대는 대장님(윤다은)입니다. 지금은 '${ROOMS[state.room].name.replace(/[^가-힣\s]/g,'').trim()}'에서 대화 중이고, 함께 있는 비서는 다니(총괄)·클로드(분석·문서)·지피티(기획·카피)·제미나이(리서치·트렌드)입니다. ` +
+      `답변 규칙: 한국어 존댓말, 짧고 재치 있게 2~4문장, 이모지는 0~2개, 필요하면 줄바꿈으로 간단히 정리. 상대를 '대장님'이라고 부르세요.`;
+    const extra = {
+      claude:'근거와 체크리스트 중심으로 차분하게 정리하는 말투.',
+      openai:'아이디어와 문장을 밝고 경쾌하게 제안하는 말투.',
+      gemini:'최신 흐름과 사례를 콕 집어 알려주는 말투.'
+    }[key] || '';
+    return base + ' ' + extra;
+  }
+
+  function buildPrompt(text){
+    const recent = transcript(12);
+    return `[최근 대화]\n${recent}\n\n[대장님의 새 요청]\n${text}\n\n위 맥락을 이어받아 답해 주세요.`;
+  }
+
+  async function callClaude(key, model, text){
+    const modelName = (model && model.trim()) || PROVIDERS.claude.defModel;
+    let res;
+    try{
+      res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{
+          'content-type':'application/json',
+          'x-api-key': key,
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body: JSON.stringify({
+          model: modelName,
+          max_tokens: 600,
+          system: systemPrompt('claude'),
+          messages: [{ role:'user', content: buildPrompt(text) }]
+        })
+      });
+    }catch(e){
+      throw new ApiError('claude', 0, 'fetch 실패');
+    }
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok) throw new ApiError('claude', res.status, (data && data.error && data.error.message) || '');
+    const out = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n').trim();
+    if(!out) throw new ApiError('claude', res.status, '빈 응답');
+    return out;
+  }
+
+  async function callOpenAI(key, model, text){
+    const modelName = (model && model.trim()) || PROVIDERS.openai.defModel;
+    let res;
+    try{
+      res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method:'POST',
+        headers:{ 'content-type':'application/json', 'authorization':'Bearer ' + key },
+        body: JSON.stringify({
+          model: modelName,
+          temperature: 0.8,
+          max_tokens: 600,
+          messages: [
+            { role:'system', content: systemPrompt('openai') },
+            { role:'user', content: buildPrompt(text) }
+          ]
+        })
+      });
+    }catch(e){
+      throw new ApiError('openai', 0, 'fetch 실패');
+    }
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok) throw new ApiError('openai', res.status, (data && data.error && data.error.message) || '');
+    const out = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+    if(!out) throw new ApiError('openai', res.status, '빈 응답');
+    return String(out).trim();
+  }
+
+  async function callGemini(key, model, text){
+    const modelName = (model && model.trim()) || PROVIDERS.gemini.defModel;
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(modelName) + ':generateContent?key=' + encodeURIComponent(key);
+    let res;
+    try{
+      res = await fetch(url, {
+        method:'POST',
+        headers:{ 'content-type':'application/json' },
+        body: JSON.stringify({
+          system_instruction:{ parts:[{ text: systemPrompt('gemini') }] },
+          contents:[{ role:'user', parts:[{ text: buildPrompt(text) }] }],
+          generationConfig:{ maxOutputTokens: 600, temperature: 0.9 }
+        })
+      });
+    }catch(e){
+      throw new ApiError('gemini', 0, 'fetch 실패');
+    }
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok) throw new ApiError('gemini', res.status, (data && data.error && data.error.message) || '');
+    if(data && data.promptFeedback && data.promptFeedback.blockReason) throw new ApiError('gemini', res.status, 'blocked: ' + data.promptFeedback.blockReason);
+    const cand = data && data.candidates && data.candidates[0];
+    const out = cand && cand.content && (cand.content.parts || []).map(p => p.text || '').join('').trim();
+    if(!out) throw new ApiError('gemini', res.status, '빈 응답');
+    return out;
+  }
+
+  async function callAI(agentKey, text){
+    const p = AGENTS[agentKey].api;
+    const cfg = state.apis[p] || {};
+    if(!cfg.key || !cfg.key.trim()) throw new ApiError(p, 0, 'nokey');
+    if(p === 'claude') return callClaude(cfg.key.trim(), cfg.model, text);
+    if(p === 'openai') return callOpenAI(cfg.key.trim(), cfg.model, text);
+    if(p === 'gemini') return callGemini(cfg.key.trim(), cfg.model, text);
+    throw new ApiError(p, 0, 'unknown provider');
+  }
+
+  function apiErrorText(provider, err){
+    const label = PROVIDERS[provider] ? PROVIDERS[provider].label : provider;
+    const status = err && err.status;
+    const detail = (err && err.message) || '';
+    const where = '⚙️ API 설정 탭에서 확인해 주세요.';
+    if(detail === 'nokey') return `${label} API 키가 아직 없어요. ${where}`;
+    if(!status) return `⚠️ ${label} 연결 실패 — 네트워크 또는 브라우저 CORS 차단일 수 있어요. (${detail || 'fetch 실패'})`;
+    if(status === 401 || status === 403) return `⚠️ ${label} 인증 실패 (${status}) — API 키나 권한을 확인해 주세요. ${where}`;
+    if(status === 404) return `⚠️ ${label} 모델을 찾을 수 없어요 (404) — 모델명을 확인해 주세요. ${where}`;
+    if(status === 429) return `⚠️ ${label} 요청 한도 초과 (429) — 잠시 후 다시 시도해 주세요.`;
+    return `⚠️ ${label} 응답 실패 (${status}) ${detail ? '— ' + detail.slice(0,140) : ''} ${where}`.trim();
+  }
+
+  /* ---- dani local reply ---- */
+  const DANI_LINES = [
+    '네 대장님! 바로 정리해서 올릴게요. 우선순위대로 제가 챙기겠습니다 🫡',
+    '접수했습니다, 대장님. 제가 목록 맨 위에 올려 두고 진행 상황은 한 줄로 보고드릴게요.',
+    '알겠습니다! 지금 하던 일 마무리하고 바로 달려가겠습니다 🏃',
+    '대장님 지시 접수! 필요한 서류·링크는 제가 미리 뽑아 두겠습니다 📎',
+    '확인했습니다. 오늘 안에 끝낼 수 있게 순서 맞춰 놓을게요 ✨'
+  ];
+  function daniReply(text){
+    const t = text.trim();
+    let extra = '';
+    if(/퀴즈|본인인증|밀양/.test(t)) extra = ' 밀양시 퀴즈는 마감이 오늘 23:59라 알람도 함께 걸어 둘게요 ⏰';
+    else if(/설문|법제처/.test(t)) extra = ' 법제처 설문은 12/3까지니까 이번 주 안에 여유 있게 끝낼 수 있어요.';
+    else if(/의자|식탁|가구/.test(t)) extra = ' 식탁의자 비교표는 클로드가 이미 만들어 뒀습니다.';
+    else if(/리뷰|쿠팡|포인트/.test(t)) extra = ' 쿠팡 리뷰 13,773점 기록, 계속 이어 갑니다!';
+    else if(/링크|쿠팡파트너스|살림/.test(t)) extra = ' 살림템 5선 링크는 대장님 계정 로그인만 남았어요.';
+    const base = DANI_LINES[Math.floor(Math.random()*DANI_LINES.length)];
+    return base + extra;
+  }
+
+  /* ---- send flow ---- */
+  function pushMsg(m){
+    if(!state.msgs[state.room]) state.msgs[state.room] = [];
+    state.msgs[state.room].push(m);
+    saveMsgs();
+    renderChat();
+  }
+
+  async function handleSend(){
+    const input = $('#msgInput');
+    const text = input.value.trim();
+    if(!text) return;
+    input.value = '';
+
+    pushMsg({ who: state.sender, at: Date.now(), text });
+
+    const plan = resolveTargets(text, state.sender);
+    const aiTargets = plan.ais || [];
+
+    if(plan.noKey){
+      pushMsg({ type:'hint', at:Date.now(), text:'⚙️ 연결된 API 키가 아직 없어요. [API 설정] 탭에서 클로드 · 지피티 · 제미나이 키를 넣으면 여기서 실제 답변이 옵니다.' });
+    }
+
+    if(plan.dani){
+      // 다니는 잠깐 뒤 로컬 응답
+      state.pending = ['dani'];
+      renderChat();
+      await new Promise(r => setTimeout(r, 550));
+      state.pending = [];
+      pushMsg({ who:'dani', at:Date.now(), text: daniReply(text) });
+      await new Promise(r => setTimeout(r, 200));
+    }
+
+    if(!aiTargets.length) return;
+
+    for(const key of aiTargets){
+      state.pending = [key];
+      renderChat();
+      try{
+        const answer = await callAI(key, text);
+        state.pending = [];
+        pushMsg({ who:key, at:Date.now(), text: answer });
+      }catch(err){
+        state.pending = [];
+        const provider = (err && err.provider) || AGENTS[key].api;
+        if(err && err.message === 'nokey'){
+          pushMsg({ type:'hint', at:Date.now(), text:`⚙️ ${PROVIDERS[provider].label} API 키가 아직 없어요. [API 설정]에서 넣어 주시면 실제 답변을 드립니다. 키는 다은님 브라우저에만 저장돼요.` });
+        }else{
+          pushMsg({ who:key, at:Date.now(), type:'error', text: apiErrorText(provider, err) });
+        }
+      }
+    }
+  }
+
+  $('#sendBtn').addEventListener('click', handleSend);
+  $('#msgInput').addEventListener('keydown', e => {
+    if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); handleSend(); }
+  });
+
+  $('#resetChat').addEventListener('click', () => {
+    if(!confirm('이 방의 대화를 처음 상태로 되돌릴까요? (이 브라우저에만 저장된 대화입니다)')) return;
+    const fresh = seedMessages();
+    state.msgs[state.room] = fresh[state.room];
+    saveMsgs();
+    renderChat();
+    toast('대화를 초기화했어요');
+  });
+
+  /* ---------------- todos ---------------- */
+  function renderTodos(){
+    const list = $('#todoList');
+    const total = state.todos.length;
+    const done = state.todos.filter(t => t.done).length;
+    $('#todoCount').textContent = total ? `${done} / ${total}` : '0 / 0';
+
+    if(!total){
+      list.innerHTML = `<div class="empty">오늘 할 일을 추가해 보세요 ✍️</div>`;
+      return;
+    }
+    list.innerHTML = state.todos.map(t => `
+      <li class="todo ${t.done?'done':''}" data-id="${esc(t.id)}">
+        <button class="check" data-act="toggle" aria-label="완료 체크">✓</button>
+        <span class="tx">${esc(t.text)}</span>
+        <button class="del" data-act="del" aria-label="삭제">✕</button>
+      </li>`).join('');
+  }
+
+  $('#todoList').addEventListener('click', e => {
+    const li = e.target.closest('.todo'); if(!li) return;
+    const id = li.dataset.id;
+    const item = state.todos.find(t => t.id === id);
+    if(!item) return;
+    if(e.target.closest('[data-act="toggle"]')){
+      item.done = !item.done;
+      saveTodos(); renderTodos();
+      if(item.done) toast('완료! 🎉');
+    } else if(e.target.closest('[data-act="del"]')){
+      state.todos = state.todos.filter(t => t.id !== id);
+      saveTodos(); renderTodos();
+    }
+  });
+
+  function addTodo(){
+    const input = $('#todoInput');
+    const text = input.value.trim();
+    if(!text) return;
+    state.todos.push({ id:'t' + Date.now() + Math.random().toString(36).slice(2,6), text, done:false });
+    input.value = '';
+    saveTodos(); renderTodos();
+  }
+  $('#todoAdd').addEventListener('click', addTodo);
+  $('#todoInput').addEventListener('keydown', e => { if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); addTodo(); } });
+
+  /* ---------------- team ---------------- */
+  function renderTeam(){
+    const cards = [];
+    cards.push(`
+      <div class="tcard">
+        <div class="tava">🔴</div>
+        <div class="tbody">
+          <div class="tname">다니 <span class="trole">총괄비서</span></div>
+          <div class="tdesc">비서실 총괄 · 일정·보고 정리 · 대장님과 가장 가까운 자리. 호출하면 먼저 달려옵니다.</div>
+          <div class="tmeta"><span class="pill ok">● 상주 중</span><span class="pill">24시간</span><span class="pill wood">앱 내장</span></div>
+        </div>
+      </div>`);
+
+    AI_KEYS.forEach(k => {
+      const a = AGENTS[k], p = PROVIDERS[a.api];
+      const cfg = state.apis[a.api] || {};
+      const on = !!(cfg.key && cfg.key.trim());
+      const model = (cfg.model && cfg.model.trim()) || p.defModel;
+      cards.push(`
+        <div class="tcard">
+          <div class="tava">${a.emoji}</div>
+          <div class="tbody">
+            <div class="tname">${a.name} <span class="trole">${roleShort(k)}</span></div>
+            <div class="tdesc">${teamDesc(k)}</div>
+            <div class="tmeta">
+              <span class="pill ${on?'ok':'warn'}">${on?'● API 연결됨':'○ API 미설정'}</span>
+              <span class="pill">${esc(model)}</span>
+            </div>
+          </div>
+        </div>`);
+    });
+    $('#teamList').innerHTML = cards.join('');
+  }
+
+  function teamDesc(k){
+    return {
+      claude:'긴 문서 요약·근거 정리·비교표 담당. 차분하게 팩트로 정리합니다.',
+      openai:'아이디어·카피·문장 다듬기 담당. 블로그·쇼츠 대본까지 뽑습니다.',
+      gemini:'리서치·트렌드·최신 정보 담당. 공공 이벤트와 판매 동향을 훑습니다.'
+    }[k] || '';
+  }
+
+  /* ---------------- API settings ---------------- */
+  function renderApiSettings(){
+    AI_KEYS.forEach(p => {
+      const cfg = state.apis[p] || {};
+      const keyEl = $('#key-' + p);
+      const modelEl = $('#model-' + p);
+      if(keyEl && keyEl.value !== (cfg.key || '')) keyEl.value = cfg.key || '';
+      if(modelEl && modelEl.value !== (cfg.model || '')) modelEl.value = cfg.model || '';
+      const stat = document.querySelector(`[data-stat="${p}"]`);
+      if(stat){
+        const on = !!(cfg.key && cfg.key.trim());
+        stat.textContent = on ? '연결됨' : '미설정';
+        stat.className = 'pill ' + (on ? 'ok' : 'warn');
+      }
+    });
+    updateAiStatusLine();
+  }
+
+  function updateAiStatusLine(){
+    const on = connectedAIs();
+    const el = $('#aiStatusLine');
+    if(!el) return;
+    if(!on.length){
+      el.textContent = '⚙️ API 키를 넣으면 실제 AI가 답해요';
+    }else{
+      el.textContent = '🟢 연결됨: ' + on.map(k => AGENTS[k].name).join(' · ');
+    }
+  }
+
+  $('#saveKeys').addEventListener('click', () => {
+    AI_KEYS.forEach(p => {
+      const key = ($('#key-' + p).value || '').trim();
+      const model = ($('#model-' + p).value || '').trim() || PROVIDERS[p].defModel;
+      state.apis[p] = { key, model };
+    });
+    saveApis();
+    renderApiSettings();
+    renderRoomHeader();
+    toast('저장했어요 🔐 브라우저에만 보관됩니다');
+  });
+
+  $('#clearKeys').addEventListener('click', () => {
+    if(!confirm('저장된 3사 API 키를 모두 삭제할까요?')) return;
+    AI_KEYS.forEach(p => { state.apis[p] = { key:'', model: PROVIDERS[p].defModel }; });
+    saveApis();
+    renderApiSettings();
+    renderRoomHeader();
+    toast('키를 모두 삭제했어요');
+  });
+
+  $$('.eye').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = $('#key-' + btn.dataset.eye);
+      if(!input) return;
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.textContent = show ? '🙈' : '👁️';
+    });
+  });
+
+  /* ---------------- memos ---------------- */
+  function renderMemos(){
+    const wrap = $('#memoList');
+    $('#memoCount').textContent = state.memos.length + '개';
+    if(!state.memos.length){
+      wrap.innerHTML = `<div class="empty">아직 메모가 없어요. 첫 메모를 남겨 보세요 🌿</div>`;
+      return;
+    }
+    wrap.innerHTML = state.memos.map(mm => {
+      const editing = state.editingMemo === mm.id;
+      return `
+        <div class="memo" data-id="${esc(mm.id)}">
+          ${editing
+            ? `<textarea rows="3" data-edit="${esc(mm.id)}">${esc(mm.text)}</textarea>
+               <div class="row" style="gap:6px;margin-top:8px">
+                 <button class="btn primary" data-act="save" style="padding:7px 12px;font-size:11.5px">저장</button>
+                 <button class="btn ghost" data-act="cancel" style="padding:7px 12px;font-size:11.5px">취소</button>
+               </div>`
+            : `<div class="mtext">${esc(mm.text)}</div>
+               <div class="mfoot"><span>${esc(memoDate(mm.at))}</span>
+                 <span class="sp">
+                   <button class="iconbtn" data-act="edit">✏️ 수정</button>
+                   <button class="iconbtn" data-act="del">🗑️</button>
+                 </span>
+               </div>`}
+        </div>`;
+    }).join('');
+  }
+  function memoDate(ts){
+    try{ return new Date(ts).toLocaleDateString('ko-KR', { month:'long', day:'numeric' }) + ' ' + fmtTime(ts); }
+    catch(e){ return ''; }
+  }
+
+  $('#memoAdd').addEventListener('click', () => {
+    const ta = $('#memoInput');
+    const text = ta.value.trim();
+    if(!text) return;
+    state.memos.unshift({ id:'m' + Date.now(), text, at: Date.now() });
+    ta.value = '';
+    saveMemos(); renderMemos();
+    toast('메모 저장 ✍️');
+  });
+
+  $('#memoList').addEventListener('click', e => {
+    const memoEl = e.target.closest('.memo'); if(!memoEl) return;
+    const id = memoEl.dataset.id;
+    const item = state.memos.find(x => x.id === id); if(!item) return;
+    const act = e.target.closest('[data-act]');
+    if(!act) return;
+    const a = act.dataset.act;
+    if(a === 'del'){
+      if(!confirm('이 메모를 삭제할까요?')) return;
+      state.memos = state.memos.filter(x => x.id !== id);
+      saveMemos(); renderMemos();
+    } else if(a === 'edit'){
+      state.editingMemo = id;
+      renderMemos();
+      const ta = memoEl.querySelector('textarea');
+      if(ta) ta.focus();
+    } else if(a === 'cancel'){
+      state.editingMemo = null;
+      renderMemos();
+    } else if(a === 'save'){
+      const ta = memoEl.querySelector('textarea');
+      const text = ta ? ta.value.trim() : '';
+      if(!text) return;
+      item.text = text;
+      item.at = Date.now();
+      state.editingMemo = null;
+      saveMemos(); renderMemos();
+      toast('수정했어요');
+    }
+  });
+
+  /* ---------------- boot ---------------- */
+  function boot(){
+    renderMap();
+    renderSenders();
+    renderRoomHeader();
+    renderChat();
+    renderTodos();
+    renderTeam();
+    renderApiSettings();
+    renderMemos();
+    updateAiStatusLine();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
